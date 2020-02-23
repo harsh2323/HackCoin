@@ -1,2 +1,3 @@
-# HackCoin
-A simple blockchain created using Typescript
+# Bill
+Come get your crypto bills.
+Just Bills
