@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "raw-build": "",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harsh2323/HackCoin.git"
   },
   "keywords": [],
   "author": "",
@@ -12,9 +17,18 @@
   "dependencies": {
     "@types/node": "^13.7.4",
     "bitcoin-ts": "^1.12.0",
+    "dat-swarm-defaults": "^1.0.2",
+    "discovery-swarm": "^6.1.0",
     "elliptic": "^6.5.2",
     "fast-sha256": "^1.3.0",
+    "get-port": "^5.1.1",
     "js-sha256": "^0.9.0",
-    "uuid": "^3.4.0"
+    "mocha": "^7.0.1",
+    "portfinder": "^1.0.25",
+    "uuid": "^3.4.0",
+    "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
   }
 }

@@ -19,7 +19,7 @@ export default class Utils {
     }
 
     // generating id for a transaction
-    static genID() {
+    static genID() { 
         return uuid1();
     }
 }

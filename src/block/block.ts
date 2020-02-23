@@ -32,6 +32,7 @@ export class Block {
         this.hash = hash;
         this.nonce = nonce;
         this.timestamp = timestamp;
+        // data is transaction
         this.data = data;
 
     }
