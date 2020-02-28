@@ -1,8 +1,9 @@
 import * as config from '../config';
 
 import Utils from '../util'
-import {Block, Chain} from '../block/block';
-import { Transaction } from './transaction';
+import {Block} from '../block/block';
+import Chain from '../block/chain';
+import { Transaction } from '../block/interface';
  
 
 export class Wallet { 
@@ -28,7 +29,7 @@ export class Wallet {
     }
 
 
-    calculateBalance(blockchain: Chain): number{  
+    calculateBalance(blockchain: Chain){  
 
         // this is the updated last timestamp that we check on our block
         this.timestamp = blockchain.chain[blockchain.chain.length - 1].timestamp;
@@ -66,16 +67,32 @@ export class Wallet {
 
         // filter over the transactions to get the keys (WITHDRAWALS)
         const withdrawals = newTransaction.filter((e) => {
-            e.input.address === this.publicKey;
+            e.input.senderAddress === this.publicKey;
         });
 
         // DEPOSITS
-        const deposits = newTransaction.filter((e) => {
-            if(!e.input.amount) {
-                console.log('no deposits');
-            } 
-            this.totalAmount < e.input.amount;
+        const newDeposits = newTransaction.filter((e) => {
+            for(let i = 0; i < e.output.length; i++) {
+                if(e.output[i].address === this.publicKey && e.input[i].address != this.publicKey) {
+                    return true;
+                }
+            }
         });
+        
+        // Subtract the withdrawals from the total balance
+        for(let i=0; i < withdrawals.length; i++ ) {
+            for(let j=0; j < withdrawals[i].output.length; j++) {
+                balance -= withdrawals[i].output[j].totalAmount;
+            }
+        }
+
+        // Add all the deposits to the total balance
+        for(let i=0; i < newDeposits.length; i++) {
+            for( let j=0; j < newDeposits[i].output.length; j++ ) {
+                balance += newDeposits[i].output[j].totalAmount;
+            }
+        }
+
     }
 
 }    

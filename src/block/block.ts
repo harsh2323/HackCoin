@@ -1,22 +1,8 @@
 import { sha256, sha224 } from 'js-sha256';
 
-import { Transaction, TextInput, TextOutput}  from '../wallet/transaction'
-/**
- * Chain of Blocks
- */
-export class Chain {
-    chain: Block[];
+import { Transaction}  from '../wallet/transaction';
 
-    constructor() { 
-        // The cahin is an array of blocks
-        this.chain = [Block.firstBlock()];
-    }
 
-    static addNewBlock(block: Block) { 
-        //if it is verified then add it to the chain
-        if(block.data)
-    }
-}
 /**
  * Basic Block structure in the Chain
  */
@@ -41,7 +27,7 @@ export class Block {
     static firstBlock(): Block {
         let firstTransac: Transaction = new Transaction();
         firstTransac.id = 'firstBlock';
-        firstTransac.input = new TextInput(0,'----');
+        firstTransac.input = new Transaction();
  
         return new Block('','f1r4th4sh',0,0,firstTransac)
 

@@ -1,18 +1,27 @@
 import  Utils  from '../util'
 
-import {UnsignedBlock, SignedBlock} from '../block/interface';
+import { Transaction } from '../block/interface'
 
 /**
- * The Transaction class which controls all the outgoing transasctions
+ * The Transaction bloc which controls all the outgoing transasctions
  */
-export class Transaction { 
-    id: string;
-    input!: UnsignedBlock;
-    output: SignedBlock[];
+export function getNewTransactions(address: string, senderBalance: number, senderAmount: number, receiverBalance: number, senderPublicKey: string): Transaction {
+    // if the amount the sender sends exceeds the amount in their balance then throw an error
+    if( senderAmount > senderBalance ) { 
+        throw new RangeError('You dont have a sufficient balance to send this amount');
+    }
 
-    constructor() {
-        this.id = Utils.genID();
-        this.output = []
-
+    //otherwise.. 
+    return {
+        address: Utils.genID(),
+        input: {
+            senderAddress: senderPublicKey,
+            senderBalance: senderBalance,
+            amount: senderAmount,
+        },
+        output: {
+            receiverAddress: address,
+            receiverBalance: receiverBalance
+        }
     }
 }
